@@ -1,0 +1,26 @@
+{
+    "name": "roberto/php-pro",
+    "version": "1.0.0",
+    "description": "Clube Full-Stak: PHP Profissional",
+    "require": {
+        "php": "^7.2",
+        "ext-pdo": "*",
+        "ext-mysqli": "*"
+    },
+
+    "autoload": {
+        "files": [
+            "app/helpers/constants.php",
+            "app/router/router.php"
+        ],
+        "psr-4": {
+            "app\\": "app"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roberto",
+            "email": "jrggroberto@gmail.com"
+        }
+    ]
+}
