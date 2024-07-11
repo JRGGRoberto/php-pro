@@ -40,21 +40,35 @@ function param($uri, $matchedUri)
     return [];
 }
 
+function paramFormat($uri, $params) {
+    $uri = explode('/', ltrim($uri, '/'));
+    $paramsData = [];
+    foreach ($params as $index => $param){
+        $paramsData[$uri[$index -1]] = $param;
+    }
+    return $paramsData;
+}
+
 function router()
 {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     $routes = routers();
 
-    $arr1 = [
-        'user', '1', 'name', 'roberto',
-    ];
-    $arr2 = [
-        'user', '[0-9]+', 'name', '[a-z]+',
-    ];
-
     $matchedUri = exactMatchUriInArrayRoutes($uri, $routes);
-    $param = param($uri, $matchedUri);
-    var_dump($param);
+
+    if(empty($matchedUri)){
+        $matchedUri = regularExpressionMatchArrayRoutes($uri, $routes);
+        if(!empty($matchedUri)){
+            $params = param($uri, $matchedUri);
+            $params = paramFormat($uri, $params);
+
+            var_dump($params);
+            die();
+
+        }
+    }
+
+    var_dump($matchedUri);
     exit;
 }
